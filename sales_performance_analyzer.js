@@ -40,11 +40,45 @@ function findTopandBottomPerformers(salesperson) {
 
 // Example:
 const salesperson = [
-    { name: 'Harry', totalSales: 8500 },
-    { name: 'Hermione', totalSales: 9000 },
-    { name: 'Ron', totalSales: 4000 },
-    { name: 'Hedwig', totalSales: 7000 }
+    { name: 'Alice', totalSales: 8500 },
+    { name: 'Bob', totalSales: 9000 },
+    { name: 'Charlie', totalSales: 4000 },
+    { name: 'Diana', totalSales: 7000 }
 ];
 
 const result = findTopandBottomPerformers(salesperson);
 console.log(result);
+
+// Task 4: Combine Functions to Generate a Performance Report
+
+function calculateAverageSales(salesData) {
+    return salesData.map(data => {
+        const totalSales = data.sales.reduce((sum, sale) => sum + sale, 0);
+        const averageSales = totalSales / data.sales.length;
+        return { name: data.name, averageSales };
+    });
+}
+
+function determinePerformanceRating(salesperson) {
+    if (averageSales > 10000) {
+        return "Excellent";
+    } else if (averageSales >= 7000) {
+        return "Good";
+    } else if (averageSales >= 4000) {
+        return "Satisfactory";
+    } else {
+        return "Needs Improvement";
+    }
+}
+
+function findTopAndBottomPerformers(salesData) {
+    return salesperson.reduce((acc, salesperson) => {
+        if (!acc.topPerformer || salesperson.totalSales > acc.topPerformer.totalSales) {
+            acc.topPerformer = salesperson;
+        }
+        if (!acc.bottomPerformer || salesperson.totalSales < acc.bottomPerformer.totalSales) {
+            acc.bottomPerformer = salesperson;
+        }
+        return acc;
+    }, { topPerformer: null, bottomPerformer: null });
+}
